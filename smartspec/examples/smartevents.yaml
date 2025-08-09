@@ -1,0 +1,10 @@
+app: SmartEvents
+stack: next14+node18+postgres+stripe
+models:
+  - Event { id uuid pk, title string, date datetime, venue string, price number }
+pages:
+  - /events:list(Event) filters=[date,price]
+  - /events/:id:details(Event)
+  - /checkout:stripe
+features: [email, sms, tickets, admin]
+deploy: target=smartnet-runtime rollout=canary
